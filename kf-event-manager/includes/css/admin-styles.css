@@ -1,0 +1,108 @@
+.kf-meta-box,
+.kf-meta-box-side,
+.kf-meta-box-checkbox,
+.kf-meta-box-full label,
+.kf-meta-box-full input {
+	display: block;
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.kf-meta-box-checkbox {
+	margin: 10px;
+}
+
+.kf-meta-box label, 
+.kf-meta-box-side label {
+	display: block;
+	float: left;
+	width: 100px;
+	font-weight: bold;
+}
+
+.kf-meta-box input {
+	width: 300px;
+}
+
+.kf-meta-box-date {
+	width: 150px;
+}
+
+.kf-meta-box-time {
+	width: 80px;
+}
+
+.kf-em-ticket-type input[type='radio'] {
+	margin-left: 20px;
+}
+
+.kf-em-description {
+	font-weight:bold;
+	padding-top:5px;
+}
+
+.kf-em-info {
+	font-style: italic;
+}
+
+.kf-em-ticket-header,
+.kf-em-ticket-item {
+	display: block;
+	padding-top:5px;
+	padding-bottom:5px;
+	border-bottom: 1px solid #ddd;
+}
+
+.kf-em-ticket-item:nth-of-type(even) {
+	background-color: #f8f8f8;
+}
+
+.kf-em-ticket-header {
+	font-weight: bold;
+	height: 25px;
+}
+
+.kf-em-ticket-header label {
+	width: 86px; 
+	display: block;
+	float: left;
+}
+.kf-em-ticket-header label:last-of-type {
+	width: 150px;
+}
+
+.kf-em-ticket-item input[type='text'] {
+	width: 80px;
+}
+
+#kf-em-ticket-add {
+	margin-top: 5px;
+}
+
+.kf-em-ticket-item .button {
+	width: 30px;
+}
+
+@media screen and (max-width: 500px) {
+	.kf-meta-box label, 
+	.kf-meta-box-side label {
+		float: none;
+	}
+	.kf-meta-box input,
+    .kf-meta-box-side input {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 850px) {
+	.kf-meta-box-date,
+    .kf-meta-box-time {
+    	width: 150px;
+    }
+}
+
+@media screen and (min-width: 850px) {
+	.kf-meta-box-side label {
+		width: 80px;
+	}
+}
