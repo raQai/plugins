@@ -26,6 +26,7 @@ class KFEventPostType {
 	const textdomain 	= 'kf_em';
 	const slabel 		= 'Event';
 	const plabel 		= 'Events';
+	const ticket_tab	= 'kfem_tickets'; 
 	protected $menu_parent_set;
 		
 	public function __construct() {
@@ -38,6 +39,8 @@ class KFEventPostType {
 		}
 		
 		register_activation_hook( __FILE__, array( $this, 'kfem_create_page' ) );
+		register_activation_hook( __FILE__, array( $this, 'kfem_create_db_tables' ) );
+		register_deactivation_hook( __FILE__, array( $this, 'kfem_drop_db_tables' ) );
 
 		add_action( 'init', array( $this, 'kfem_register_custom_post' ) );
 		add_action( 'init', array( $this, 'kfem_register_custom_taxonomy' ) );
@@ -104,6 +107,26 @@ class KFEventPostType {
 	
 		// save the id in the database
 		update_option( self::post_type, $ID );
+	}
+
+	function kfem_create_db_tables() {
+		global $wpdb;
+		$ticket_table = $wpdb->prefix . self::ticket_tab;
+		$checkdb = $wpdb->query('CREATE TABLE IF NOT EXISTS ' . $ticket_table . ' (
+			id int(11) NOT NULL auto_increment,
+			postID int(11) NOT NULL,
+			name VARCHAR(32) NOT NULL,
+			price VARCHAR(10),
+			spots VARCHAR(10),
+			PRIMARY KEY (id)
+		);');
+		return $checkdb;
+	}
+
+	function kfem_drop_db_tables() {
+		global $wpdb;
+		$ticket_table = $wpdb->prefix . self::ticket_tab;
+		$wpdb->query('DROP TABLE IF EXISTS ' . $ticket_table . ';');
 	}
 
 	/*
