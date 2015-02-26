@@ -13,7 +13,7 @@ class MetaBoxLocation extends MetaBox_Abstract
 		?>
 
 		<div class="kf-meta-box-checkbox">
-			<input type="checkbox" id="kf-em-location-checkbox" onClick="kfm_checkboxDivDisplay( this.id, 'kf-em-location' )" name="<?php echo $this->fields[0]; ?>" value="yes" <?php if ( get_post_meta( $post->ID, $this->fields[0], true ) != '') echo 'checked '; ?>/>
+			<input type="checkbox" id="kf-em-location-checkbox" onClick="kfem_checkboxDivDisplay( this.id, 'kf-em-location' )" name="<?php echo $this->fields[0]; ?>" value="yes" <?php if ( get_post_meta( $post->ID, $this->fields[0], true ) != '') echo 'checked '; ?>/>
 			<label id="kf-em-location-checkbox-label" for="kf-em-location-checkbox">Externe Veranstaltung</label>
 		</div>
 		<div id="kf-em-location" <?php if ( get_post_meta( $post->ID, $this->fields[0], true ) == '') echo 'style="display:none" '; ?>>

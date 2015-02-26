@@ -26,7 +26,7 @@ class MetaBoxBooking extends MetaBox_Abstract
 		
 		?>
 		<div class="kf-meta-box-checkbox">
-			<input onClick="kfem_checkboxDivDisplay( this.id, 'kf-em-booking' ); kfem_creaetLinksString();" <?php if ( $settings['is_active'] ) echo 'checked '; ?>type="checkbox" id="<?php echo $this->fields[0]?>" name="<?php echo $this->fields[0]?>" value="1" />
+			<input onClick="kfem_checkboxDivDisplay( this.id, 'kf-em-booking' );kfem_createBookingString();" <?php if ( $settings['is_active'] ) echo 'checked '; ?>type="checkbox" id="<?php echo $this->fields[0]?>" name="<?php echo $this->fields[0]?>" value="1" />
 			<label id="kf-em-booking-checkbox-label" for="kfem-booking-checkbox">Voranmeldungen aktivieren</label>
 		</div>
 		<div id="kf-em-booking" <?php if ( !$settings['is_active'] ) echo 'style="display:none" '; ?>>
