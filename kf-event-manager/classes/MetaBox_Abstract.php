@@ -58,9 +58,12 @@ abstract class MetaBox_Abstract {
 		}
 
 		$post_type = get_post_type_object( self::post_type );
-		
+
 		// $_POST['kf-em-tickets-information'];
 		// TODO explode and save to db
+		if ( isset(	$_POST['kf-em-tickets-information'] ) ) {
+			$this->kfem_save_ticket_data( $_POST['kf-em-tickets-information'], $post_id );
+		}
 
 		if ( !current_user_can( $post_type->cap->edit_post, $post_id ) ) {
 			return $post_id;
@@ -71,5 +74,40 @@ abstract class MetaBox_Abstract {
 		}
 	}
 	
+	function kfem_save_ticket_data( $tickets_str, $post_id ) {
+		global $wpdb;
+		$table = $wpdb->prefix . 'kfem_tickets';
+		$ticket_ids = array();
+
+		$ticket_strs = explode( '-', $tickets_str );
+		foreach ( $ticket_strs as $ticket_str ) {
+			$ticket = explode( ';', $ticket_str );
+			$ticket_data = array(
+				'postID' => $post_id,
+				'name' => $ticket[1],
+				'price' => $ticket[2],
+				'spots' => $ticket[3]
+			);
+			if ( $ticket[0] === 'new' ) {
+				// add ticket to db if new
+				$test = $wpdb->insert( $table, $ticket_data );
+				$test2 = $wpdb->insert_id;
+				$ticket_ids[] = $wpdb->insert_id;
+			} else {	
+				// update tickets otherwise
+				$wpdb->update( $table, $ticket_data, array( 'id' => $ticket[0] ) );
+				$ticket_ids[] = $ticket[0];
+			}
+		}
+		// delete tickets that are not present on submit
+		$table_ids = $wpdb->get_col( 'SELECT id FROM ' . $table . ' WHERE postID = ' . $post_id );
+		foreach ( $table_ids as $table_id ) {
+			if ( !in_array( $table_id, $ticket_ids ) ) {
+				$wpdb->delete( $table, array( 'id' => $table_id ), array( '%d' ) );
+			}
+		}
+	}
+
 	abstract function kfem_display_meta_box_html( $post );
 }
+

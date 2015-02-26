@@ -32,7 +32,7 @@ function kfem_createBookingString() {
 		}
 	}
 	
-	document.getElementById( 'kf-em-tickets-information' ).value = bookingStrings.join(';$;');
+	document.getElementById( 'kf-em-tickets-information' ).value = bookingStrings.join('-');
 }
 
 function kfem_createTicket() {

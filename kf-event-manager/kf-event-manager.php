@@ -12,7 +12,6 @@ defined ( 'ABSPATH' ) or die ( 'nope!' );
  *
  * Copyright 2015 Patrick Bogdan
  * TODO: MetaBoxBooking load tickets
- * TODO: MetaBox_Abstract explode and store to / update / delete from db
  */
 
 // load classes
@@ -105,7 +104,7 @@ class KFEventPostType {
 	
 		$ID = wp_insert_post( $page );
 	
-		// save the id in the database
+// save the id in the database
 		update_option( self::post_type, $ID );
 	}
 

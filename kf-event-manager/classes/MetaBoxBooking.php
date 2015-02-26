@@ -9,15 +9,14 @@ class MetaBoxBooking extends MetaBox_Abstract
 		$this->fields[] = 'kf-em-booking-checkbox';
 		$this->fields[] = 'kf-em-ticket-type';
 		
-		$dummy[] = array('ID' => '0', 'name' => 'OD', 'price' => '5,00', 'spots' => '36' );
-		$dummy[] = array('ID' => '1', 'name' => 'ND', 'price' => '10,00', 'spots' => '36' );
-		$dummy[] = array('ID' => '2', 'name' => 'AD', 'price' => '15,00', 'spots' => '36' );
+		global $wpdb;
+		$ticket_query = '';
+		$ticket_query .= 'SELECT id, name, price, spots ';
+		$ticket_query .= 'FROM wp_kfem_tickets ';
+		$ticket_query .= 'WHERE postID = ' . $post->ID;
 		
-		$tickets = $dummy;
-		unset($dummy);
-		
-		// 		TODO $tickets = get tickets from db
-		//		FORMAT: array( 'ID' => i, 'name' => n, 'price' => p, 'spots' => s )
+		$tickets = $wpdb->get_results( $ticket_query, ARRAY_A );
+
 		$settings = array(
 				'is_active' => get_post_meta( $post->ID, $this->fields[0], true ),
 				'type' => get_post_meta( $post->ID, $this->fields[1], true ),
@@ -73,7 +72,7 @@ class MetaBoxBooking extends MetaBox_Abstract
 	{
 		?>
 		<div id="kf-em-ticket-item[<?php echo $ID; ?>]" class="kf-em-ticket-item">
-			<input type="hidden" value="<?php echo $ticket['ID']; ?>" />
+			<input type="hidden" value="<?php echo $ticket['id']; ?>" />
 			<input onChange="kfem_createBookingString();"<?php if ( $is_active ) echo ' required'; ?> value="<?php echo $ticket['name']; ?>" placeholder="Name" />
 			<input onChange="kfem_createBookingString();"<?php if ($ticket['price'] > 0 ) echo ' value="' . $ticket['price'] . '"'; ?> placeholder="frei" />
 			<input onChange="kfem_createBookingString();"<?php if ($ticket['spots'] > 0 ) echo ' value="' . $ticket['spots'] . '"'; ?> placeholder="unbeschränkt"/>
