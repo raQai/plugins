@@ -44,6 +44,8 @@ class KFEventPostType {
 		add_action( 'init', array( $this, 'kfem_register_custom_post' ) );
 		add_action( 'init', array( $this, 'kfem_register_custom_taxonomy' ) );
 		
+		add_filter( 'archive_template', array( $this, 'kfem_get_archive_template' ) );
+		add_filter( 'single_template', array( $this, 'kfem_get_single_template' ) );
 		add_filter( 'nav_menu_css_class', array( $this, 'kfem_menu_classes' ), 10, 2 );
 		
 		// Create MetaBoxes
@@ -131,6 +133,21 @@ class KFEventPostType {
 	/*
 	 * Apply filters
 	 */
+	function kfem_get_archive_template( $archive_template ) {
+		if ( is_post_type_archive( self::post_type ) ) {
+			$archive_template = dirname( __FILE__ ) . '/includes/templates/archive-events.php';
+		}
+		return $archive_template;
+	}
+
+	function kfem_get_single_template( $single_template ) {
+		global $post;
+		if ( $post->post_type == self::post_type ) {
+			$single_template = dirname( __FILE__ ) . '/includes/templates/single-events.php';
+		}
+		return $single_template;
+	}
+
 	// update navigation items to display active page propperly
 	function kfem_menu_classes( $classes , $item ) {
 	

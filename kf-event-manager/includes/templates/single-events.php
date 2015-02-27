@@ -8,22 +8,13 @@
 			<header class="entry-header">
 				<h1 class="entry-title">
 					<?php
-						$page = get_page_by_path( ( (get_post_type() == 'teams') ? 'teams' : 'events' ) );
+						$page = get_page_by_path( 'events' );
 						echo get_the_title( $page->ID ); 
 					?>
 				</h1>
 			</header><!-- .page-header -->
 
 			<?php
-					while ( have_posts() ) {
-						the_post();
-						if ( get_post_type() == 'teams' ) {
-							require 'content-teams.php';
-						} else {
-							
-						}
-							
-					}
 
 				else :
 					get_template_part( 'content', 'none' );
