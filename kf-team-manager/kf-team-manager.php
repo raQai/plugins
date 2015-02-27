@@ -33,7 +33,7 @@ class KFTeamPostType {
 		add_action( 'init', array( $this, 'kftm_register_custom_post' ) );
 		
 		add_filter( 'archive_template', array( $this, 'kftm_get_archive_template' ) ) ;
-		add_filter( 'pre_get_posts', array( $this, 'kftm_set_display_order' ) );
+		add_filter( 'posts_orderby', array( $this, 'kftm_orderby' ) );
 		add_filter( 'nav_menu_css_class', array( $this, 'kftm_menu_classes' ), 10, 2 );
 	}
 	
@@ -98,11 +98,8 @@ class KFTeamPostType {
 	}
 	
 	// change post order to menu_order
-	function kftm_set_display_order($wp_query) {
-		if ( $wp_query->query['post_type'] == self::post_type ) {
-			$wp_query->set( 'orderby', 'menu_order' );
-			$wp_query->set( 'order', 'ASC' );
-		}
+	function kftm_orderby( $orderby ) {
+		return 'menu_order ASC';
 	}
 	
 	// update navigation items to display active page propperly
