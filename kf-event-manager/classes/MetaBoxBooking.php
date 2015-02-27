@@ -89,7 +89,7 @@ class MetaBoxBooking extends MetaBox_Abstract
 				onChange="kfem_createBookingString();"
 				<?php if ( $ticket['price'] > 0 ) echo ' value="' . $ticket['price'] . '"'; ?>
 			>
-			<input placeholder="unbeschränkt" 
+			<input placeholder="frei" 
 				onChange="kfem_createBookingString();"
 				<?php if ( !empty( $ticket['spots'] ) ) echo ' value="' . $ticket['spots'] . '"'; ?> 
 			>

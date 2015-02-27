@@ -39,10 +39,10 @@ function kfem_createTicket() {
 	var ID = document.getElementById( 'kf-em-ticket-counter' ).value;
 	var itemString = '';
 	
-	itemString += '<input type="hidden" value="new" />';
-	itemString += '<input onChange="kfem_createBookingString();" required placeholder="Name" /> ';
-	itemString += '<input onChange="kfem_createBookingString();" placeholder="frei" /> ';
-	itemString += '<input onChange="kfem_createBookingString();" placeholder="unbeschränkt"/> ';
+	itemString += '<input type="hidden" value="new" >';
+	itemString += '<input onChange="kfem_createBookingString();" required placeholder="Name" > ';
+	itemString += '<input onChange="kfem_createBookingString();" placeholder="frei" > ';
+	itemString += '<input onChange="kfem_createBookingString();" placeholder="frei" > ';
 	itemString += '<input onClick="kfem_deleteTicket(\'kf-em-ticket-item['+ ID +']\'); kfem_createBookingString()" value="&cross;" type="button" class="button button-small button-primary" />';
 
 	var div = document.createElement('div');
