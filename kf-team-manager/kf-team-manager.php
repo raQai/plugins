@@ -24,19 +24,18 @@ class KFTeamPostType {
 	const slabel 		= 'Team';
 	const plabel 		= 'Teams';
 	protected $menu_parent_set;
-		
+
 	public function __construct() {
 		$this->menu_parent_set 	= false;
-		
+
 		register_activation_hook( __FILE__, array( $this, 'kftm_create_page' ) );
-		
+
 		add_action( 'init', array( $this, 'kftm_register_custom_post' ) );
-		
+
 		add_filter( 'archive_template', array( $this, 'kftm_get_archive_template' ) ) ;
-		add_filter( 'posts_orderby', array( $this, 'kftm_orderby' ) );
 		add_filter( 'nav_menu_css_class', array( $this, 'kftm_menu_classes' ), 10, 2 );
 	}
-	
+
 	/*
 	 * Register post type
 	 */
@@ -63,10 +62,10 @@ class KFTeamPostType {
 				'supports' 		=> array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
 				'rewrite' 		=> array( 'slug' => self::post_type )
 		);
-	
+
 		register_post_type( self::post_type, $args );
 	}
-	
+
 	/*
 	 * Register new page
 	 */
@@ -79,13 +78,13 @@ class KFTeamPostType {
 				'post_status' 	=> 'publish',
 				'post_date' 	=> date( 'Y-m-d H:i:s' )
 		);
-	
+
 		$ID = wp_insert_post( $page );
-	
+
 		// save the id in the database
 		update_option( self::post_type, $ID );
 	}
-	
+
 	/*
 	 * Create Filters
 	 */
@@ -96,15 +95,10 @@ class KFTeamPostType {
 		}
 		return $archive_template;
 	}
-	
-	// change post order to menu_order
-	function kftm_orderby( $orderby ) {
-		return 'menu_order ASC';
-	}
-	
+
 	// update navigation items to display active page propperly
 	function kftm_menu_classes( $classes , $item ) {
-	
+
 		if ( get_post_type() == self::post_type ) {
 			if ( $item->url == get_site_url() . '/' . self::post_type . '/' ) {
 				$classes[] = ' current-menu-item';
