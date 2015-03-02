@@ -5,30 +5,29 @@
 	$tickets = $wpdb->get_col( $sql );
 	$is_active = get_post_meta( get_the_id(), 'kf-em-booking-checkbox', true );
 ?>
-
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'kf-em-event' ); ?>>
-	<div class="kfem-time">
-		<?php
+<tr>
+  <td>
+    <?php
       $start = get_post_meta( get_the_id(), 'kf-em-start', true );
-      echo date( 'd.m.Y', $start ) . '<br />';
-      echo date( 'H:i', $start );
-		?>
-	</div>
-  <div class="kfem-cat">
+      echo date( 'd.m.Y', $start );
+    ?>
+  </td>
+  <td>
     <?php the_taxonomies( array( 'template' => '% %l' ) ); ?>
-  </div>
-	<div class="kfem-info">
-		<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
-			<?php
-				the_title();
-				if ( $is_active ) {
-					echo ' ( ' . implode( ', ', $tickets ) . ' )';
-				}
-				echo '<br />&raquo;Weitere Infos'; 
-				if ( $is_active ) {
-					echo ' und Voranmeldung';
-				}
-			?>
-		</a>
-	</div><!-- .entry-content -->
-</article><!-- #post-## -->
+  </td>
+  <td>
+    <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+      <?php
+        the_title();
+        if ( $is_active ) {
+          echo ' ( ' . implode( ', ', $tickets ) . ' )';
+        }
+        echo '<br />&raquo;Weitere Infos'; 
+        if ( $is_active ) {
+          echo ' und Voranmeldung';
+        }
+      ?>
+    </a>
+  </td>
+</tr>
+<!-- .entry-content -->

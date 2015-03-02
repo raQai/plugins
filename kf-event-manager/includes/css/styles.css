@@ -1,0 +1,14 @@
+.kf-em-event th,
+.kf-em-event td {
+  padding:5px 15px;
+  border-top:1px solid rgba(0,0,0,.5);
+}
+.kf-em-event tr:nth-child(odd) {
+  background-color:rgba(0,0,0,.1);
+}
+.kf-em-event th {
+  background-color:#1a1a1a;
+}
+.kf-em-event a {
+  display:block;
+}

@@ -13,19 +13,27 @@
 					?>
 				</h1>
 			</header><!-- .page-header -->
+      <article class="hentry kf-em-event">
+        <table>
+          <tr>
+            <th width="120">Datum</th>
+            <th width="150">Kategorie</th>
+            <th>Name</th>
+          </tr>
+          <?php
+            while ( have_posts() ) {
+              the_post();
 
-			<?php
-				while ( have_posts() ) {
-					the_post();
+              include 'content-event.php';
+            }
 
-					include 'content-event.php';
-				}
-
-				else :
-					get_template_part( 'content', 'none' );
-				endif;
-			?>
-		</div><!-- #content -->
+            else :
+              get_template_part( 'content', 'none' );
+            endif;
+          ?>
+        </table>
+      </article>
+    </div>
 	</section><!-- #primary -->
 
 <?php

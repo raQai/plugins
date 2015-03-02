@@ -11,7 +11,6 @@ defined ( 'ABSPATH' ) or die ( 'nope!' );
  * License: GPL2
  *
  * Copyright 2015 Patrick Bogdan
- * TODO: MetaBoxBooking load tickets
  */
 
 // load classes
@@ -32,10 +31,23 @@ class KFEventPostType {
 		$this->menu_parent_set 	= false;
 
 		if ( is_admin () ) {
-			// load scripts and styles to back end
-			add_action( 'admin_enqueue_scripts', wp_enqueue_style ( 'kfem-admin-style', plugins_url ( 'includes/css/admin-styles.css', plugin_basename ( __FILE__ ) ) ) );
-			add_action( 'admin_enqueue_scripts', wp_enqueue_script ( 'kfem-admin-js', plugins_url ( 'includes/js/kfem-admin-scripts.js', plugin_basename ( __FILE__ ) ) ) );
-		}
+      add_action( 'admin_enqueue_scripts',
+        wp_enqueue_style( 'kfem-admin-style',
+          plugins_url( 'includes/css/admin-styles.css', plugin_basename( __FILE__ ) )
+        )
+      );
+      add_action( 'admin_enqueue_scripts',
+        wp_enqueue_script( 'kfem-admin-js',
+          plugins_url( 'includes/js/kfem-admin-scripts.js', plugin_basename( __FILE__ ) )
+        )
+      );
+    } else {
+      add_action( 'wp_enqueue_scripts',
+        wp_enqueue_style( 'kfem-front-style',
+          plugins_url( 'includes/css/styles.css', plugin_basename( __FILE__ ) )
+        )
+      );
+    }
 
 		register_activation_hook( __FILE__, array( $this, 'kfem_create_page' ) );
 		register_activation_hook( __FILE__, array( $this, 'kfem_create_db_tables' ) );
@@ -136,15 +148,18 @@ class KFEventPostType {
       return;
     }
     if ( is_post_type_archive( self::post_type ) ) {
+      $order = ( ( $_GET['archive_type'] == 'past' ) ? 'DESC' : 'ASC' );
+      $compare = ( ( $_GET['archive_type'] == 'past' ) ? '<' : '>=' );
+
       $query->set( 'orderby', 'meta_value' );
-      $query->set( 'posts_per_page', 10 );
-      $query->set( 'order', 'ASC' );
+      $query->set( 'posts_per_page', 15 );
+      $query->set( 'order', $order );
       $query->set( 'meta_key', 'kf-em-start' );
       $meta_query = array(
           array(
             'key' => 'kf-em-start',
             'value' => time(),
-            'compare' => '>='
+            'compare' => $compare
           )
         );
       $query->set( 'meta_query', $meta_query );
