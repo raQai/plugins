@@ -3,16 +3,7 @@
 	<section id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
 
-			<?php
-				$args = array(
-					'post_type' => 'teams',
-					'orderby' => 'menu_order',
-					'order' => 'ASC',
-				);
-				$query = new WP_Query( $args );
-
-				if ( $query->have_posts() ) :
-			?>
+			<?php if ( have_posts() ) : ?>
 
 			<header class="entry-header">
 				<h1 class="entry-title">
@@ -24,9 +15,9 @@
 			</header><!-- .page-header -->
 
 			<?php
-					while ( $query->have_posts() ) {
+					while ( have_posts() ) {
 
-						$query->the_post();
+						the_post();
 
 						include 'content-teams.php';
 					}

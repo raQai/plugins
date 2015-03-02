@@ -31,6 +31,7 @@ class KFTeamPostType {
 		register_activation_hook( __FILE__, array( $this, 'kftm_create_page' ) );
 
 		add_action( 'init', array( $this, 'kftm_register_custom_post' ) );
+    add_action( 'pre_get_posts', array( $this, 'kftm_orderby' ), 1 );
 
 		add_filter( 'archive_template', array( $this, 'kftm_get_archive_template' ) ) ;
 		add_filter( 'nav_menu_css_class', array( $this, 'kftm_menu_classes' ), 10, 2 );
@@ -84,6 +85,17 @@ class KFTeamPostType {
 		// save the id in the database
 		update_option( self::post_type, $ID );
 	}
+
+  function kftm_orderby( $query ) {
+    if ( is_admin() || ! $query->is_main_query() ) {
+      return;
+    }
+    if ( is_post_type_archive( self::post_type ) ) {
+      $query->set( 'orderby', 'menu_order' );
+      $query->set( 'order', 'ASC' );
+    }
+    return $query;
+  }
 
 	/*
 	 * Create Filters
