@@ -5,18 +5,18 @@
 
 			<?php
 				$args = array(
-					'post_type'			=> 'events',
-					'posts_per_page'	=> 10,
-					'orderby'			=> 'meta_value',
-					'order'				=> 'DESC',
-					'meta_key'			=> 'kf-em-date-date',
-					'meta_query'		=> array(
-						array(
-							'key'			=> 'kf-em-date-date',
-							'value'		=> date('Y-m-d'),
-							'compare'	=> '>='
-						)
-					)
+					'post_type' => 'events',
+					'posts_per_page' => 10,
+					'orderby' => 'meta_value',
+					'order' => 'ASC',
+          'meta_key' => 'kf-em-start',
+          'meta_query' => array(
+            array(
+              'key' => 'kf-em-start',
+              'value' => time(),
+              'compare' => '>='
+            )
+          )
 				);
 				$query = new WP_Query( $args );
 

@@ -1,16 +1,17 @@
 <?php defined( 'ABSPATH' ) or die( 'nope!' ); 
 	global $wpdb;
 	$table = $wpdb->prefix . 'kfem_tickets';
-	$tickets = $wpdb->get_col( 'SELECT name FROM ' . $table . ' WHERE postID = ' . get_the_id() );
+  $sql = 'SELECT name FROM ' . $table . ' WHERE postID = ' . get_the_id(); 
+	$tickets = $wpdb->get_col( $sql );
 	$is_active = get_post_meta( get_the_id(), 'kf-em-booking-checkbox', true );
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'kf-em-event' ); ?>>
 	<div class="kfem-time">
 		<?php
-			$date = DateTime::createFromFormat( 'Y-m-d', get_post_meta( get_the_id(), 'kf-em-date-date', true ) );
-			echo $date->format( 'd.m.Y' ) . '<br />';
-			echo get_post_meta( get_the_id(), 'kf-em-date-start', true ) . ' Uhr';
+      $start = get_post_meta( get_the_id(), 'kf-em-start', true );
+      echo date( 'd.m.Y', $start ) . '<br />';
+      echo date( 'H:i', $start );
 		?>
 	</div>
 	<div class="kfem-info">
