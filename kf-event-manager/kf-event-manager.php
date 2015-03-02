@@ -43,6 +43,7 @@ class KFEventPostType {
 
 		add_action( 'init', array( $this, 'kfem_register_custom_post' ) );
 		add_action( 'init', array( $this, 'kfem_register_custom_taxonomy' ) );
+    add_action( 'pre_get_posts', array( $this, 'kfem_orderby' ), 1 );
 
 		add_filter( 'archive_template', array( $this, 'kfem_get_archive_template' ) );
 		add_filter( 'single_template', array( $this, 'kfem_get_single_template' ) );
@@ -129,6 +130,27 @@ class KFEventPostType {
 		$ticket_table = $wpdb->prefix . self::ticket_tab;
 		$wpdb->query('DROP TABLE IF EXISTS ' . $ticket_table . ';');
 	}
+
+  function kfem_orderby( $query ) {
+    if ( is_admin() || ! $query->is_main_query() ) {
+      return;
+    }
+    if ( is_post_type_archive( self::post_type ) ) {
+      $query->set( 'orderby', 'meta_value' );
+      $query->set( 'posts_per_page', 10 );
+      $query->set( 'order', 'ASC' );
+      $query->set( 'meta_key', 'kf-em-start' );
+      $meta_query = array(
+          array(
+            'key' => 'kf-em-start',
+            'value' => time(),
+            'compare' => '>='
+          )
+        );
+      $query->set( 'meta_query', $meta_query );
+    }
+    return $query;
+  }
 
 	/*
 	 * Apply filters

@@ -3,25 +3,7 @@
 	<section id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
 
-			<?php
-				$args = array(
-					'post_type' => 'events',
-					'posts_per_page' => 10,
-					'orderby' => 'meta_value',
-					'order' => 'ASC',
-          'meta_key' => 'kf-em-start',
-          'meta_query' => array(
-            array(
-              'key' => 'kf-em-start',
-              'value' => time(),
-              'compare' => '>='
-            )
-          )
-				);
-				$query = new WP_Query( $args );
-
-				if ( $query->have_posts() ) :
-			?>
+			<?php if ( have_posts() ) : ?>
 
 			<header class="entry-header">
 				<h1 class="entry-title">
@@ -33,9 +15,8 @@
 			</header><!-- .page-header -->
 
 			<?php
-
-				while ( $query->have_posts() ) {
-					$query->the_post();
+				while ( have_posts() ) {
+					the_post();
 
 					include 'content-event.php';
 				}

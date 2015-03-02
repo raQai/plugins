@@ -14,6 +14,9 @@
       echo date( 'H:i', $start );
 		?>
 	</div>
+  <div class="kfem-cat">
+    <?php the_taxonomies( array( 'template' => '% %l' ) ); ?>
+  </div>
 	<div class="kfem-info">
 		<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 			<?php
