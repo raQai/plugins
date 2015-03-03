@@ -12,3 +12,35 @@
 .kf-em-event a {
   display:block;
 }
+.kf-em-event-single {
+  margin-bottom:50px;
+}
+.kf-em-event-data tr td:first-of-type {
+font-weight:bold;
+width:120px;
+padding:3px 0px;
+}
+.kfem-register-player {
+  float:left;
+  width:250px;
+}
+.kfem-register-player label {
+  font-weight:bold;
+}
+.kfem-register-player input {
+  margin-bottom:6px;
+}
+#kfem-register div {
+  padding-left:10px;
+}
+#kfem-tickets {
+  clear:both;
+  padding-top:20px;
+}
+#kfem-tickets td,
+#kfem-tickets th {
+  padding:5px 0px;
+}
+#kfem-tickets td:first-of-type {
+  width:120px
+}

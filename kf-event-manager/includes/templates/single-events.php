@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-	<article id="primary" class="content-area">
+	<article id="primary" class="content-area kf-em-event-single">
 		<div id="content" class="site-content" role="main">
 
 			<?php if ( have_posts() ) : the_post(); ?>
@@ -35,7 +35,7 @@
             $loc .= get_post_meta( get_the_id(), 'kf-em-location-city', true ) . '<br />';
           }
         ?>
-        <table>
+        <table class="kf-em-event-data">
           <tr>
             <td>Datum:</td>
             <td><?php echo date( 'd.m.Y', $start ); ?></td>
@@ -58,23 +58,9 @@
         <?php
           the_content();
 
+          include 'booking-form.php';
+
           edit_post_link( __( 'Edit' ), '<span class="edit-link">', '</span>' );
-
-          $prev_post = get_previous_post();
-          if($prev_post) {
-            $prev_title = strip_tags(str_replace('"', '', $prev_post->post_title));
-            echo "\t" . '<a rel="prev" href="' . get_permalink($prev_post->ID) . '" title="' . $prev_title. '" class=" ">&laquo; Previous post<br /><strong>&quot;'. $prev_title . '&quot;</strong></a>' . "\n";
-          }
-
-          $next_post = get_next_post();
-          if($next_post) {
-            $next_title = strip_tags(str_replace('"', '', $next_post->post_title));
-            echo "\t" . '<a rel="next" href="' . get_permalink($next_post->ID) . '" title="' . $next_title. '" class=" ">Next post &raquo;<br /><strong>&quot;'. $next_title . '&quot;</strong></a>' . "\n";
-          }
-          //echo next_posts_link( '%link', 'Older Entries', $the_query->max_num_pages );
-          //echo previous_posts_link( '%link', 'Newer Entries' );
-
-          wp_reset_postdata();
         ?>
       </div><!-- .entry-content -->
 			<?php
@@ -85,7 +71,6 @@
 			?>
 		</div><!-- #content -->
 	</article><!-- #primary -->
-
 <?php
 get_sidebar( 'content' );
 get_footer(); ?>
